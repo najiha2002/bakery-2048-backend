@@ -1,7 +1,7 @@
 public class Player
 {
     public Guid PlayerId { get; set; }
-    public string Name { get; set; }
+    public string Username { get; set; }
     public string Email { get; set; }
     public int HighestScore { get; set; }
     public int CurrentScore { get; set; }
@@ -18,10 +18,10 @@ public class Player
     public int PowerUpsUsed { get; set; }
     public string FavoriteItem { get; set; }
 
-    public Player(string name, string email = "")
+    public Player(string username, string email = "")
     {
         PlayerId = Guid.NewGuid();
-        Name = name;
+        Username = username;
         Email = email;
         HighestScore = 0;
         CurrentScore = 0;
@@ -81,7 +81,7 @@ public class Player
 
     public string GetPlayerStats()
     {
-        return $"Player: {Name}\n" +
+        return $"Player: {Username}\n" +
                $"ID: {PlayerId}\n" +
                $"Email: {Email}\n" +
                $"Level: {Level}\n" +
@@ -186,7 +186,7 @@ public class Player
     // Get summary for leaderboard display
     public string GetLeaderboardEntry()
     {
-        return $"{Name} - Level {Level} - Score: {HighestScore}";
+        return $"{Username} - Level {Level} - Score: {HighestScore}";
     }
 
     // reset current game stats (for new game)
