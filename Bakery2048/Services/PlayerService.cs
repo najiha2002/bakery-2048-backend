@@ -356,12 +356,29 @@ public class PlayerService
             return;
         }
 
+        // Get power-ups used with codes
+        List<string> powerUpsUsedInSession = new List<string>();
+        Console.Write("Enter number of power-ups used (0 if none): ");
+        if (int.TryParse(Console.ReadLine(), out int powerUpCount) && powerUpCount > 0)
+        {
+            Console.WriteLine("\nEnter the code of each power-up used (e.g., SB, EM, TF, BM):");
+            for (int i = 1; i <= powerUpCount; i++)
+            {
+                Console.Write($"Power-up #{i} code: ");
+                string? powerUpCode = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(powerUpCode))
+                {
+                    powerUpsUsedInSession.Add(powerUpCode.Trim().ToUpper());
+                }
+            }
+        }
+
         // check if reached win condition (e.g., 2048 tile)
         bool reachedWin = bestTile >= 2048 ? true : false;
 
         // record the session
         TimeSpan playDuration = TimeSpan.FromMinutes(minutes);
-        player.RecordGameSession(finalScore, bestTile, moves, playDuration, reachedWin);
+        player.RecordGameSession(finalScore, bestTile, moves, playDuration, powerUpsUsedInSession.Count > 0 ? powerUpsUsedInSession : null, reachedWin);
 
         SaveToFile();
 
@@ -373,6 +390,7 @@ public class PlayerService
         Console.WriteLine($"Current Level: {player.Level}");
         Console.WriteLine($"Rank: {player.GetRankCategory()}");
         Console.WriteLine($"Win Streak: {player.WinStreak}");
+        Console.WriteLine($"Total Power-Ups Used: {player.PowerUpsUsed}");
     }
 
     private void SaveToFile()

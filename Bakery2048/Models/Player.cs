@@ -16,6 +16,7 @@ public class Player
     public int WinStreak { get; set; }
     public int TotalMoves { get; set; }
     public int PowerUpsUsed { get; set; }
+    public List<string> PowerUpHistory { get; set; } = new List<string>(); // Track which power-ups were used
     public string FavoriteItem { get; set; }
 
     public Player(string username, string email = "")
@@ -36,6 +37,7 @@ public class Player
         WinStreak = 0;
         TotalMoves = 0;
         PowerUpsUsed = 0;
+        PowerUpHistory = new List<string>();
         FavoriteItem = string.Empty;
     }
 
@@ -122,9 +124,10 @@ public class Player
         TotalMoves += moves;
     }
 
-    public void UsePowerUp()
+    public void UsePowerUp(string powerUpName)
     {
         PowerUpsUsed++;
+        PowerUpHistory.Add(powerUpName);
     }
 
     // Deactivate player account
@@ -196,7 +199,7 @@ public class Player
     }
 
     // Record a complete game session
-    public void RecordGameSession(int finalScore, int bestTileAchieved, int movesMade, TimeSpan playDuration, bool reachedWinCondition = false)
+    public void RecordGameSession(int finalScore, int bestTileAchieved, int movesMade, TimeSpan playDuration, List<string>? powerUpsUsedInSession = null, bool reachedWinCondition = false)
     {
         // Update scores
         CurrentScore = finalScore;
@@ -220,6 +223,13 @@ public class Player
         // Add moves to total
         TotalMoves += movesMade;
 
+        // Record power-ups used
+        if (powerUpsUsedInSession != null && powerUpsUsedInSession.Count > 0)
+        {
+            PowerUpsUsed += powerUpsUsedInSession.Count;
+            PowerUpHistory.AddRange(powerUpsUsedInSession);
+        }
+
         // Add play time
         TotalPlayTime += playDuration;
 
@@ -238,6 +248,30 @@ public class Player
 
         // Auto level up based on score
         CalculateLevelFromScore();
+    }
+
+    // Get most used power-up
+    public string? GetMostUsedPowerUp()
+    {
+        if (PowerUpHistory.Count == 0) return null;
+
+        return PowerUpHistory.GroupBy(p => p)
+                             .OrderByDescending(g => g.Count())
+                             .First()
+                             .Key;
+    }
+
+    // Get power-up usage frequency
+    public Dictionary<string, int> GetPowerUpUsageStats()
+    {
+        return PowerUpHistory.GroupBy(p => p)
+                             .ToDictionary(g => g.Key, g => g.Count());
+    }
+
+    // Get average power-ups per game
+    public double GetAveragePowerUpsPerGame()
+    {
+        return GamesPlayed > 0 ? (double)PowerUpsUsed / GamesPlayed : 0;
     }
 }
 
