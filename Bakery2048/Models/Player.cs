@@ -97,4 +97,101 @@ public class Player
                $"Last Played: {LastPlayed:yyyy-MM-dd}\n" +
                $"Status: {(IsActive ? "Active" : "Inactive")}";
     }
+
+    // update best tile if a higher tile is achieved
+    public void UpdateBestTile(int tileValue)
+    {
+        if (tileValue > BestTileAchieved)
+        {
+            BestTileAchieved = tileValue;
+        }
+    }
+
+    public void IncrementWinStreak()
+    {
+        WinStreak++;
+    }
+
+    public void ResetWinStreak()
+    {
+        WinStreak = 0;
+    }
+
+    public void AddMoves(int moves)
+    {
+        TotalMoves += moves;
+    }
+
+    public void UsePowerUp()
+    {
+        PowerUpsUsed++;
+    }
+
+    // Deactivate player account
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
+
+    // Reactivate player account
+    public void Activate()
+    {
+        IsActive = true;
+    }
+
+    public int GetDaysSinceRegistration()
+    {
+        return (DateTime.Now - DateRegistered).Days;
+    }
+
+    // Get days since last played
+    public int GetDaysSinceLastPlayed()
+    {
+        return (DateTime.Now - LastPlayed).Days;
+    }
+
+    // Check if player is inactive (hasn't played in 30 days)
+    public bool IsInactive()
+    {
+        return GetDaysSinceLastPlayed() > 30;
+    }
+
+    public void CalculateLevelFromScore()
+    {
+        Level = (HighestScore / 1000) + 1;
+    }
+
+    public string GetRankCategory()
+    {
+        if (HighestScore >= 50000) return "Master Baker";
+        if (HighestScore >= 20000) return "Head Baker";
+        if (HighestScore >= 10000) return "Pastry Chef";
+        if (HighestScore >= 5000) return "Baker";
+        if (HighestScore >= 1000) return "Apprentice Baker";
+        return "Kitchen Helper";
+    }
+
+    // get efficiency (average score per move)
+    public double GetEfficiency()
+    {
+        return TotalMoves > 0 ? (double)HighestScore / TotalMoves : 0;
+    }
+
+    // update favorite item based on usage
+    public void SetFavoriteItem(string itemName)
+    {
+        FavoriteItem = itemName;
+    }
+
+    // Get summary for leaderboard display
+    public string GetLeaderboardEntry()
+    {
+        return $"{Name} - Level {Level} - Score: {HighestScore}";
+    }
+
+    // reset current game stats (for new game)
+    public void ResetCurrentGame()
+    {
+        CurrentScore = 0;
+    }
 }
