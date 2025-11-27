@@ -25,7 +25,7 @@ public class PlayerService
         }
 
         // Check if player already exists
-        if (players.Any(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+        if (players.Any(p => p.Username.Equals(name, StringComparison.OrdinalIgnoreCase)))
         {
             Console.WriteLine($"Player '{name}' already registered.");
             return;
@@ -49,7 +49,12 @@ public class PlayerService
         Console.WriteLine($"Player ID: {newPlayer.PlayerId}");
         Console.WriteLine($"Registration Date: {newPlayer.DateRegistered:yyyy-MM-dd HH:mm}");
         Console.WriteLine($"Starting Rank: {newPlayer.GetRankCategory()}");
-        Console.WriteLine("\nYou can now start playing and recording game sessions!");
+        Console.WriteLine("\nYou can now start playing and recording game sessions! Do you want to record a game session now? (yes/no): ");
+
+        string? recordNow = Console.ReadLine()?.ToLower();
+        if (recordNow == "yes" || recordNow == "y")
+        {            RecordGameSession();
+        }
     }
 
     public void ViewAllPlayers()
@@ -62,13 +67,13 @@ public class PlayerService
             return;
         }
 
-        Console.WriteLine($"{"Name",-20} {"Level",-8} {"High Score",-12} {"Games Played",-15} {"Status",-10}");
+        Console.WriteLine($"{"Username",-20} {"Level",-8} {"High Score",-12} {"Games Played",-15} {"Status",-10}");
         Console.WriteLine(new string('-', 75));
 
         foreach (var player in players)
         {
             string status = player.IsActive ? "Active" : "Inactive";
-            Console.WriteLine($"{player.Name,-20} {player.Level,-8} {player.HighestScore,-12} {player.GamesPlayed,-15} {status,-10}");
+            Console.WriteLine($"{player.Username,-20} {player.Level,-8} {player.HighestScore,-12} {player.GamesPlayed,-15} {status,-10}");
         }
     }
 
@@ -77,7 +82,7 @@ public class PlayerService
         Console.Write("\nEnter player name to search: ");
         string searchName = Console.ReadLine() ?? "";
 
-        var foundPlayers = players.Where(p => p.Name.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
+        var foundPlayers = players.Where(p => p.Username.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
 
         if (foundPlayers.Count == 0)
         {
@@ -99,7 +104,7 @@ public class PlayerService
         Console.Write("\nEnter player name to update: ");
         string searchName = Console.ReadLine() ?? "";
 
-        var player = players.FirstOrDefault(p => p.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase));
+        var player = players.FirstOrDefault(p => p.Username.Equals(searchName, StringComparison.OrdinalIgnoreCase));
 
         if (player == null)
         {
@@ -107,7 +112,7 @@ public class PlayerService
             return;
         }
 
-        Console.WriteLine($"\nUpdating player: {player.Name}");
+        Console.WriteLine($"\nUpdating player: {player.Username}");
         Console.WriteLine("1. Update Email");
         Console.WriteLine("2. Update Score");
         Console.WriteLine("3. Update Level");
@@ -190,7 +195,7 @@ public class PlayerService
         Console.Write("\nEnter player name to delete: ");
         string searchName = Console.ReadLine() ?? "";
 
-        var player = players.FirstOrDefault(p => p.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase));
+        var player = players.FirstOrDefault(p => p.Username.Equals(searchName, StringComparison.OrdinalIgnoreCase));
 
         if (player == null)
         {
@@ -198,14 +203,14 @@ public class PlayerService
             return;
         }
 
-        Console.Write($"Are you sure you want to delete player '{player.Name}'? (yes/no): ");
+        Console.Write($"Are you sure you want to delete player '{player.Username}'? (yes/no): ");
         string confirm = Console.ReadLine()?.ToLower() ?? "";
 
         if (confirm == "yes" || confirm == "y")
         {
             players.Remove(player);
             SaveToFile();
-            Console.WriteLine($"✓ Player '{player.Name}' deleted successfully.");
+            Console.WriteLine($"✓ Player '{player.Username}' deleted successfully.");
         }
         else
         {
@@ -232,7 +237,7 @@ public class PlayerService
         var topPlayer = players.OrderByDescending(p => p.HighestScore).FirstOrDefault();
         if (topPlayer != null)
         {
-            Console.WriteLine($"\n🏆 Top Player: {topPlayer.Name}");
+            Console.WriteLine($"\n🏆 Top Player: {topPlayer.Username}");
             Console.WriteLine($"   Score: {topPlayer.HighestScore}");
             Console.WriteLine($"   Rank: {topPlayer.GetRankCategory()}");
         }
@@ -305,7 +310,7 @@ public class PlayerService
         Console.Write("\nEnter player name: ");
         string searchName = Console.ReadLine() ?? "";
 
-        var player = players.FirstOrDefault(p => p.Name.Equals(searchName, StringComparison.OrdinalIgnoreCase));
+        var player = players.FirstOrDefault(p => p.Username.Equals(searchName, StringComparison.OrdinalIgnoreCase));
 
         if (player == null)
         {
@@ -313,7 +318,7 @@ public class PlayerService
             return;
         }
 
-        Console.WriteLine($"\n=== Recording Game Session for {player.Name} ===");
+        Console.WriteLine($"\n=== Recording Game Session for {player.Username} ===");
 
         // get final score
         Console.Write("Enter final score: ");
