@@ -185,13 +185,14 @@ public class PowerUpService : BaseService<PowerUp>
         {
             Console.WriteLine();
             ConsoleUI.Info($"Active Power-Ups: {activePowerUps.Count}");
-            Console.WriteLine($"{"Name",-25} {"Type",-18} {"Cost",-10} {"Cooldown",-12} {"Unlocked",-10}");
+            Console.WriteLine($"{"Icon",-6} {"Name",-22} {"Type",-18} {"Cost",-10} {"Cooldown",-12} {"Unlocked",-10}");
             ConsoleUI.Divider();
 
             foreach (var powerUp in activePowerUps)
             {
                 string unlocked = powerUp.IsUnlocked ? "✓" : "✗";
-                Console.WriteLine($"{powerUp.PowerUpName,-25} {powerUp.PowerUpType,-18} {powerUp.Cost,-10} {powerUp.Cooldown,-12} {unlocked,-10}");
+                string icon = string.IsNullOrEmpty(powerUp.IconUrl) ? "-" : powerUp.IconUrl;
+                Console.WriteLine($"{icon,-6} {powerUp.PowerUpName,-22} {powerUp.PowerUpType,-18} {powerUp.Cost,-10} {powerUp.Cooldown,-12} {unlocked,-10}");
             }
         }
 
