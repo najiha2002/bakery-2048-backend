@@ -94,7 +94,26 @@ public class TileService : BaseService<Tile>
         }
 
         string? icon = ConsoleUI.Prompt("Enter icon/emoji (e.g., 🌾, 🍪)");
-        string? color = ConsoleUI.Prompt("Enter color hex code (e.g., #F5DEB3)");
+        
+        string? color;
+        while (true)
+        {
+            color = ConsoleUI.Prompt("Enter color hex code (e.g., #F5DEB3)");
+            
+            if (string.IsNullOrWhiteSpace(color))
+            {
+                color = "#FFFFFF";
+                break;
+            }
+            
+            // Validate hex color format
+            if (System.Text.RegularExpressions.Regex.IsMatch(color, "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"))
+            {
+                break;
+            }
+            
+            ConsoleUI.Error("Invalid hex color format. Please use format #RRGGBB (e.g., #FF5733) or #RGB (e.g., #F57)");
+        }
 
         Console.Write("Is this a special item? (y/n): ");
         bool isSpecialItem = Console.ReadLine()?.Trim().ToLower() == "y";
@@ -292,10 +311,18 @@ public class TileService : BaseService<Tile>
                     string? newColor = ConsoleUI.Prompt("Enter new color hex code");
                     if (!string.IsNullOrWhiteSpace(newColor))
                     {
-                        tile.Color = newColor;
-                        tile.UpdateModifiedDate();
-                        SaveToFile();
-                        ConsoleUI.Success("Color updated successfully!");
+                        // Validate hex color format
+                        if (System.Text.RegularExpressions.Regex.IsMatch(newColor, "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"))
+                        {
+                            tile.Color = newColor;
+                            tile.UpdateModifiedDate();
+                            SaveToFile();
+                            ConsoleUI.Success("Color updated successfully!");
+                        }
+                        else
+                        {
+                            ConsoleUI.Error("Invalid hex color format. Please use format #RRGGBB (e.g., #FF5733) or #RGB (e.g., #F57)");
+                        }
                     }
                     break;
 
