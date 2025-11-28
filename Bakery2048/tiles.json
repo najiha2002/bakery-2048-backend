@@ -1,0 +1,101 @@
+[
+  {
+    "Id": "00000000-0000-0000-0000-000000000001",
+    "ItemName": "Flour",
+    "TileValue": 2,
+    "Icon": "🌾",
+    "Color": "#F5DEB3",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000002",
+    "ItemName": "Egg",
+    "TileValue": 4,
+    "Icon": "🥚",
+    "Color": "#FFFACD",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000003",
+    "ItemName": "Butter",
+    "TileValue": 8,
+    "Icon": "🧈",
+    "Color": "#FFE4B5",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000004",
+    "ItemName": "Sugar",
+    "TileValue": 16,
+    "Icon": "🍬",
+    "Color": "#FFB6C1",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000005",
+    "ItemName": "Donut",
+    "TileValue": 32,
+    "Icon": "🍩",
+    "Color": "#DDA0DD",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000006",
+    "ItemName": "Cookie",
+    "TileValue": 64,
+    "Icon": "🍪",
+    "Color": "#D2691E",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000007",
+    "ItemName": "Cupcake",
+    "TileValue": 128,
+    "Icon": "🧁",
+    "Color": "#FFB6D9",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000008",
+    "ItemName": "Slice Cake",
+    "TileValue": 256,
+    "Icon": "🍰",
+    "Color": "#FFC0CB",
+    "IsSpecialItem": false,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  },
+  {
+    "Id": "00000000-0000-0000-0000-000000000009",
+    "ItemName": "Whole Cake",
+    "TileValue": 512,
+    "Icon": "🎂",
+    "Color": "#FF69B4",
+    "IsSpecialItem": true,
+    "DateCreated": "2025-11-28T00:00:00",
+    "DateModified": "2025-11-28T00:00:00",
+    "IsActive": true
+  }
+]

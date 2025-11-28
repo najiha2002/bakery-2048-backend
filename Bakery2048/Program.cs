@@ -1,4 +1,5 @@
 ﻿using Bakery2048.Utilities;
+using Bakery2048.Services;
 
 class Program
 {
@@ -7,10 +8,12 @@ class Program
     static List<PowerUp> powerUps = new List<PowerUp>();
 
     static PlayerService playerService = null!;
+    static TileService tileService = null!;
 
     static void Main(string[] args)
     {
         playerService = new PlayerService(players);
+        tileService = new TileService(tiles);
         bool exit = false;
 
         ConsoleUI.ShowTitle("🍰 Bakery 2048 - Data Management System 🍰");
@@ -62,8 +65,7 @@ class Program
 
     static void ManageTiles()
     {
-        ConsoleUI.Info("Tile management menu (CRUD functions to be added)");
-        ConsoleUI.PauseForUser();
+        tileService.ShowMenu();
     }
 
     static void ManagePowerUps()
