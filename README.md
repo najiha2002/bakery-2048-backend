@@ -2,8 +2,6 @@
 
 A comprehensive backend data management system for the Bakery 2048 game, built with C# and .NET. This system manages players, bakery item tiles, and power-ups with full CRUD operations, automated data generation, and advanced LINQ analytics.
 
----
-
 ## Overview
 
 **Bakery 2048** is a themed variation of the popular 2048 puzzle game where players merge bakery items (Flour → Cookie → Cake → Wedding Cake) to achieve higher scores. This backend system provides:
@@ -21,8 +19,6 @@ A comprehensive backend data management system for the Bakery 2048 game, built w
 - **Automated Testing**: Generate realistic test data in seconds
 - **Themed Experience**: All game elements themed around bakery items and baking
 - **Simple Storage**: JSON-based persistence that's easy to read and version control
-
----
 
 ## Features
 
@@ -68,8 +64,6 @@ A comprehensive backend data management system for the Bakery 2048 game, built w
 - **Cross-Entity Analysis**: Power-up impact, win rates, elite player behavior
 - **Advanced Queries**: Percentiles, standard deviation, correlation insights
 
----
-
 ## Getting Started
 
 ### Prerequisites
@@ -95,8 +89,6 @@ A comprehensive backend data management system for the Bakery 2048 game, built w
    ```bash
    dotnet restore
    ```
-
----
 
 ## How to Run
 
@@ -129,8 +121,6 @@ Bakery 2048 - Data Management System
 Select an option (1-6):
 ```
 
----
-
 ## Project Structure
 
 ```
@@ -161,8 +151,6 @@ bakery-2048-backend/
 │   └── POWERUP_CRUD_OPERATIONS.md
 └── README.md                      # This file
 ```
-
----
 
 ## Core Functionalities
 
@@ -252,8 +240,6 @@ Score Distribution:
   20K+:    4 players
 ```
 
----
-
 ## Documentation
 
 Detailed documentation for each entity:
@@ -261,8 +247,6 @@ Detailed documentation for each entity:
 - **[Player CRUD Operations](docs/PLAYER_CRUD_OPERATIONS.md)** - Complete player management guide
 - **[Tile CRUD Operations](docs/TILE_CRUD_OPERATIONS.md)** - Bakery item catalog management
 - **[PowerUp CRUD Operations](docs/POWERUP_CRUD_OPERATIONS.md)** - Special abilities management
-
----
 
 ## Data Persistence
 
@@ -297,7 +281,6 @@ All data is stored in JSON format for easy reading and version control:
 ]
 ```
 
----
 
 ## Future Enhancements
 
