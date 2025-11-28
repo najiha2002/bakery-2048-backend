@@ -1,6 +1,8 @@
-public class Player
+using Bakery2048.Models;
+
+public class Player : BaseEntity
 {
-    public Guid PlayerId { get; set; }
+    // Inherited from BaseEntity: Id, DateCreated, DateModified, IsActive
     public string Username { get; set; }
     public string Email { get; set; }
     public int HighestScore { get; set; }
@@ -9,9 +11,6 @@ public class Player
     public int Level { get; set; }
     public int GamesPlayed { get; set; }
     public double AverageScore { get; set; }
-    public DateTime DateRegistered { get; set; }
-    public DateTime LastPlayed { get; set; }
-    public bool IsActive { get; set; }
     public TimeSpan TotalPlayTime { get; set; }
     public int WinStreak { get; set; }
     public int TotalMoves { get; set; }
@@ -19,9 +18,13 @@ public class Player
     public List<string> PowerUpHistory { get; set; } = new List<string>(); // Track which power-ups were used
     public string FavoriteItem { get; set; }
 
-    public Player(string username, string email = "")
+    // Convenience properties that map to base class
+    public Guid PlayerId => Id; // Alias for Id
+    public DateTime DateRegistered => DateCreated; // Alias for DateCreated
+    public DateTime LastPlayed { get => DateModified; set => DateModified = value; } // Alias for DateModified
+
+    public Player(string username, string email = "") : base()
     {
-        PlayerId = Guid.NewGuid();
         Username = username;
         Email = email;
         HighestScore = 0;
@@ -30,9 +33,6 @@ public class Player
         Level = 1;
         GamesPlayed = 0;
         AverageScore = 0.0;
-        DateRegistered = DateTime.Now;
-        LastPlayed = DateTime.Now;
-        IsActive = true;
         TotalPlayTime = TimeSpan.Zero;
         WinStreak = 0;
         TotalMoves = 0;
@@ -130,17 +130,7 @@ public class Player
         PowerUpHistory.Add(powerUpName);
     }
 
-    // Deactivate player account
-    public void Deactivate()
-    {
-        IsActive = false;
-    }
-
-    // Reactivate player account
-    public void Activate()
-    {
-        IsActive = true;
-    }
+    // Player-specific deactivate/activate methods removed - use inherited methods from BaseEntity
 
     public int GetDaysSinceRegistration()
     {
