@@ -280,11 +280,10 @@ public class PlayerService : BaseService<Player>
 
     public override void ShowMenu()
     {
-        bool back = false;
-
-        while (!back)
+        while (true)
         {
-            ConsoleUI.SimpleHeader("Player Management");
+            Console.Clear();
+            ConsoleUI.ShowTitle("👤 Player Management");
             ConsoleUI.MenuOption("1", "Register New Player");
             ConsoleUI.MenuOption("2", "View All Players");
             ConsoleUI.MenuOption("3", "Search Player by Username");
@@ -292,11 +291,12 @@ public class PlayerService : BaseService<Player>
             ConsoleUI.MenuOption("5", "Delete Player");
             ConsoleUI.MenuOption("6", "View Player Statistics");
             ConsoleUI.MenuOption("7", "Record New Game Session");
-            ConsoleUI.MenuOption("8", "Back to Main Menu");
-            
-            string? input = ConsoleUI.Prompt("\nSelect an option (1-8)", ConsoleColor.Yellow);
+            ConsoleUI.MenuOption("0", "Back to Main Menu");
+            Console.WriteLine();
 
-            switch (input)
+            string? choice = ConsoleUI.Prompt("Enter your choice");
+
+            switch (choice)
             {
                 case "1":
                     RegisterPlayer();
@@ -319,11 +319,11 @@ public class PlayerService : BaseService<Player>
                 case "7":
                     RecordGameSession();
                     break;
-                case "8":
-                    back = true;
-                    break;
+                case "0":
+                    return;
                 default:
-                    Console.WriteLine("Invalid option. Please try again.");
+                    ConsoleUI.Error("Invalid choice. Please try again.");
+                    PauseForUser();
                     break;
             }
         }
